@@ -1,0 +1,27 @@
+artifact_path: /Users/ibhanraj/blood_bank_mlops/mlruns/1/models/m-7d198405d2b9443ca9d72c9a7fe913ce/artifacts
+flavors:
+  lightgbm:
+    code: null
+    data: model.skops
+    lgb_version: 4.6.0
+    model_class: lightgbm.sklearn.LGBMRegressor
+    serialization_format: skops
+    skops_trusted_types:
+    - collections.OrderedDict
+    - lightgbm.sklearn.LGBMClassifier
+    - lightgbm.sklearn.LGBMRegressor
+    - lightgbm.basic.Booster
+  python_function:
+    data: model.skops
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.14.0
+mlflow_version: 3.14.0
+model_id: m-7d198405d2b9443ca9d72c9a7fe913ce
+model_size_bytes: 336866
+model_uuid: m-7d198405d2b9443ca9d72c9a7fe913ce
+prompts: null
+run_id: fde3065c514d4a55ad661f0bc2e08c81
+utc_time_created: '2026-06-20 20:11:54.089358'

@@ -1,0 +1,24 @@
+services:
+  blood-bank-api:
+    build:
+      context: .
+      dockerfile: deployment/docker/Dockerfile.api
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  blood-bank-dashboard:
+    build:
+      context: .
+      dockerfile: deployment/docker/Dockerfile.streamlit
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://blood-bank-api:8000
+    depends_on:
+      blood-bank-api:
+        condition: service_healthy

@@ -1,0 +1,22 @@
+artifact_path: /Users/ibhanraj/blood_bank_mlops/mlruns/2/models/m-823c8861f4744094a643226538c74627/artifacts
+flavors:
+  python_function:
+    data: model.ubj
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.xgboost
+    python_version: 3.14.0
+  xgboost:
+    code: null
+    data: model.ubj
+    model_class: xgboost.sklearn.XGBClassifier
+    model_format: ubj
+    xgb_version: 3.3.0
+mlflow_version: 3.14.0
+model_id: m-823c8861f4744094a643226538c74627
+model_size_bytes: 280312
+model_uuid: m-823c8861f4744094a643226538c74627
+prompts: null
+run_id: 7a9374d22a4d4ee4810e01d4d7662f2f
+utc_time_created: '2026-06-20 20:13:40.784026'
