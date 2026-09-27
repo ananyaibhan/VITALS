@@ -1,0 +1,41 @@
+stages:
+  validate_data:
+    cmd: python3 src/data_validation/validate.py
+    deps:
+      - src/data_validation/validate.py
+      - data/raw/daily_inventory.csv
+      - data/raw/batch_log.csv
+
+  build_features:
+    cmd: python3 src/features/build_features.py
+    deps:
+      - src/features/build_features.py
+      - data/raw/daily_inventory.csv
+    outs:
+      - data/processed/forecasting_features.csv
+
+  train_forecasting:
+    cmd: python3 src/models/forecasting/train.py
+    deps:
+      - src/models/forecasting/train.py
+      - data/processed/forecasting_features.csv
+    outs:
+      - models/forecasting_model.pkl
+
+  train_expiry_risk:
+    cmd: python3 src/models/expiry_risk/train.py
+    deps:
+      - src/models/expiry_risk/train.py
+      - data/raw/batch_log.csv
+      - data/processed/forecasting_features.csv
+    outs:
+      - models/expiry_risk_model.pkl
+
+  monitor_drift:
+    cmd: python3 monitoring/drift_monitor.py
+    deps:
+      - monitoring/drift_monitor.py
+      - data/processed/forecasting_features.csv
+    outs:
+      - monitoring/reports/drift_metrics.json
+      - monitoring/reports/data_drift_report.html

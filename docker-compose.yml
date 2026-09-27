@@ -1,24 +1,30 @@
+version: '3.8'
+
 services:
-  blood-bank-api:
+  backend:
     build:
-      context: .
-      dockerfile: deployment/docker/Dockerfile.api
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    volumes:
+      - ./backend/data:/app/data
+      - ./backend/models:/app/models
+      - ./backend/monitoring/reports:/app/monitoring/reports
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  blood-bank-dashboard:
+  frontend:
     build:
-      context: .
-      dockerfile: deployment/docker/Dockerfile.streamlit
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
-      - "8501:8501"
+      - "3000:80"
     environment:
-      - API_URL=http://blood-bank-api:8000
+      - VITE_API_URL=http://localhost:8000
     depends_on:
-      blood-bank-api:
+      backend:
         condition: service_healthy
